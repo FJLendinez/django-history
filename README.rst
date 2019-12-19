@@ -48,7 +48,7 @@ And just use the mixin to keep track of a model:
 Features
 --------
 
-Track changes of `MyModel`:
+Get model tracking:
 
 .. code-block:: python
 
@@ -60,12 +60,13 @@ Following the previous snippet, we can track changes of a specific object
 
 .. code-block:: python
 
-    filtered_registry = model_registry.filter(object_id=my_model.id)
+    object_tracking = model_registry.filter(object_id=my_model.id)
 
 Revert changes:
+
 .. code-block:: python
 
-    my_model = filtered_registry.last().revert_change()
+    my_model = object_tracking.last().revert_change()
 
 Running Tests
 -------------
