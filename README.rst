@@ -11,7 +11,6 @@ Django History
 .. image:: https://codecov.io/gh/fjlendinez/django-history/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/fjlendinez/django-history
 
-Small package to manage uploads and downloads in a centriliced way
 
 Documentation
 -------------
