@@ -35,23 +35,38 @@ Add it to your `INSTALLED_APPS`:
         ...
     )
 
-Add Django History's URL patterns:
+And just use the mixin to keep track of a model:
 
 .. code-block:: python
 
-    from django_history import urls as django_history_urls
+    from django_history.mixins import ModelDiffMixin
 
 
-    urlpatterns = [
-        ...
-        url(r'^', include(django_history_urls)),
-        ...
-    ]
+    class MyModel(ModelDiffMixin, models.Model):
+        # ...
+
 
 Features
 --------
 
-* TODO
+Track changes of `MyModel`:
+
+.. code-block:: python
+
+    from django_history.models import ModelRegistry
+
+    model_registry = ModelRegistry.get_registry_for_model(MyModel)
+
+Following the previous snippet, we can track changes of a specific object
+
+.. code-block:: python
+
+    filtered_registry = model_registry.filter(object_id=my_model.id)
+
+Revert changes:
+.. code-block:: python
+
+    my_model = filtered_registry.last().revert_change()
 
 Running Tests
 -------------
