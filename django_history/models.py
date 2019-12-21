@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, transaction
 from django.contrib.postgres import fields
 from django.apps import apps
 
@@ -24,6 +24,7 @@ class ModelRegistry(models.Model):
                 setattr(obj, k, v[0])
             except ValueError:
                 setattr(obj, k+"_id", v[0])
-        obj.save()
-        ModelRegistry.objects.filter(pk=self.pk).delete()
-        return obj
+        with transaction.atomic():
+            obj.save()
+            ModelRegistry.objects.filter(pk=self.pk).delete()
+            return obj
